@@ -65,6 +65,7 @@ Wireframe chat UI (non-teknis, warna utama **biru muda**):
 │   ├── config.js                   # URL backend API (atur saat produksi)
 │   └── app.js
 ├── .github/workflows/ci.yml        # CI: lint + test
+├── Procfile / requirements.txt / runtime.txt  # shim builder root (Railway/Railpack)
 ├── render.yaml                     # blueprint deploy backend (contoh)
 ├── docs/
 │   ├── README.md                   # Ketergantungan antar peran

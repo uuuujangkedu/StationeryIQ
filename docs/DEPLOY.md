@@ -31,6 +31,12 @@ Catatan:
 - Host lain: Railway/Fly.io ikut pola sama (root `backend`, start `uvicorn main:app --host 0.0.0.0 --port $PORT`).
 - Verifikasi: `GET https://<host>/health` → `{"status":"ok","db":"supabase"}`.
 
+### Railway (Railpack)
+
+Kalau builder membaca **root repo** (mis. Railpack di Railway), sudah ada shim root: `requirements.txt`, `Procfile`, `runtime.txt`. Jadi tanpa ubah setelan, deploy harusnya jalan.
+
+Alternatif/rekomendasi: set **Root Directory = `backend`** di Service Settings, lalu start command `uvicorn main:app --host 0.0.0.0 --port $PORT`. Bila muncul error "railpack process exited with an error", cek: (a) Root Directory belum diisi, atau (b) env vars belum lengkap.
+
 ## 2. Frontend (statis)
 
 Frontend murni statis (tanpa build). Dua pilihan:

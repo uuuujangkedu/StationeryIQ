@@ -1,0 +1,3 @@
+# Shim untuk builder yang membaca root repo (Railway/Railpack).
+# App asli ada di backend/; file ini hanya meneruskan dependensinya.
+-r backend/requirements.txt
