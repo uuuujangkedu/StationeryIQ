@@ -78,6 +78,7 @@ Wireframe chat UI (non-teknis, warna utama **biru muda**):
 ├── render.yaml                     # blueprint alternatif (Render)
 ├── docs/
 │   ├── README.md                   # Ketergantungan antar peran
+│   ├── CONTRACT.md                 # Kontrak API & data (FSD ↔ DS ↔ GenAI)
 │   ├── BOARD.md                    # Snapshot Kanban
 │   ├── DEPLOY.md                   # Langkah deploy
 │   └── design/                     # Aset desain (wireframe, mock)
@@ -143,7 +144,7 @@ Alur kerja kontributor:
 1. `git pull --ff-only`
 2. Kerjakan **hanya** di folder wilayah sendiri
 3. `git add` → `commit` → `git push origin main`
-4. Perubahan format JSON/payload yang dipakai path lain → sepakati dulu (lihat [`docs/README.md`](docs/README.md))
+4. Perubahan format JSON/payload yang dipakai path lain → sepakati dulu di [`docs/CONTRACT.md`](docs/CONTRACT.md)
 
 Butuh akses? Minta owner menambah sebagai Collaborator (role **Write**).
 

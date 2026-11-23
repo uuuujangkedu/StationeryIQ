@@ -19,6 +19,8 @@
 
 ## 2. Kontrak M1 (wajib disepakati sebelum Minggu 2)
 
+> **Detail lengkap + kolom jawaban DS & GenAI: [`CONTRACT.md`](CONTRACT.md).** Ringkas di bawah.
+
 - **JSON katalog produk** (FSD × DS)
   - Bentuk saat ini (di pakai `backend/db.py`, `select *`): `{ id, nama, kategori, stok, harga }`
   - Status: **sebagian** — belum formal; perlu konfirmasi apakah kolom/varian berubah.
