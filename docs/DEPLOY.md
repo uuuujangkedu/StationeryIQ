@@ -34,9 +34,17 @@ Catatan:
 
 ### Railway (Railpack)
 
-Kalau builder membaca **root repo** (mis. Railpack di Railway), sudah ada shim root: `requirements.txt`, `Procfile`. Jadi tanpa ubah setelan, deploy harusnya jalan.
+**Wajib: set Root Directory = `backend`** di Service Settings. Tanpa itu, builder mencari app di root repo dan gagal.
 
-Alternatif/rekomendasi: set **Root Directory = `backend`** di Service Settings, lalu start command `uvicorn main:app --host 0.0.0.0 --port $PORT`. Bila muncul error "railpack process exited with an error", cek: (a) Root Directory belum diisi, atau (b) env vars belum lengkap.
+Setelan service:
+- **Root Directory:** `backend`
+- **Build Command:** `pip install -r requirements.txt`
+- **Start Command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
+- **Env:** `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `ALLOWED_ORIGINS`
+
+Bila muncul `Could not open requirements file: '/app/backend/requirements.txt'` (path dobel),
+periksa: Root Directory diisi **dan** tidak ada shim `requirements.txt`/`Procfile` di root repo.
+Kosongkan Build/Start Command agar memakai setelan di atas, lalu redeploy.
 
 ## 2. Frontend (statis)
 
