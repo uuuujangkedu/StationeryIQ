@@ -1,0 +1,2 @@
+# Shim: app Python ada di backend/. Builder membaca root repo (rootDirectory belum diisi).
+-r backend/requirements.txt
