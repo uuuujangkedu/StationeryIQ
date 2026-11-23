@@ -26,7 +26,7 @@ Database inventaris (PostgreSQL / SQLite)
 | Database | PostgreSQL / SQLite (skema dirancang path DS) |
 | Frontend | Web app dengan chat UI (framework TBD) |
 | Desain | FigCraft/Figma, font **Montserrat** & **Roboto** |
-| Kolaborasi | GitHub (branch protection `main`), Kanban board, CI/CD dasar |
+| Kolaborasi | GitHub (commit langsung ke `main`), Kanban (GitHub Projects), CI/CD dasar |
 
 ## Status — Minggu 1 (20–27 Nov)
 
@@ -34,8 +34,16 @@ Target **M1**: skeleton backend/frontend berjalan, repo + CI/CD dasar, wireframe
 
 | ID | PIC | Status | Tugas |
 |---|---|---|---|
-| TSK-FS-01 | Rafi | Berjalan | Setup repo GitHub, branching, environment, board tugas |
-| TSK-FS-02 | Rizki | Berjalan | Wireframe UI chat + skeleton FastAPI & frontend |
+| TSK-FS-01 | Rafi | ✅ Selesai | Setup repo GitHub, branching, environment, board tugas |
+| TSK-FS-02 | Rizki | ✅ Selesai | Wireframe UI chat + skeleton FastAPI & frontend |
+
+**Live:**
+- Backend: https://stationeryiq-production.up.railway.app (`/health` → `{"status":"ok","db":"supabase"}`)
+- Frontend: https://rilah.ujangkedu.my.id
+- Board: https://github.com/users/uuuujangkedu/projects/1
+- CI: GitHub Actions (lint + test) hijau
+
+**Masih terbuka (di luar kendali FSD):** kontrak JSON katalog (DS), kontrak interface RAG (GenAI) — lihat [`docs/README.md`](docs/README.md).
 
 ### Desain — disetujui tim ✅
 
@@ -51,25 +59,27 @@ Wireframe chat UI (non-teknis, warna utama **biru muda**):
 
 ```
 .
-├── backend/                        # FastAPI (skeleton)
+├── backend/                        # FastAPI
 │   ├── main.py                     # endpoint: health, stok, kategori, chat
 │   ├── db.py                       # akses Supabase (fallback mock)
 │   ├── test_api.py                 # cek cepat (pytest)
 │   ├── .env.example                # template env (salin -> .env)
-│   ├── Procfile / runtime.txt      # start command & versi Python (PaaS)
 │   ├── pyproject.toml              # config ruff
 │   └── requirements.txt
-├── frontend/                       # chat UI (skeleton, tanpa build step)
+├── frontend/                       # chat UI statis (tanpa build step)
 │   ├── index.html
 │   ├── styles.css
-│   ├── config.js                   # URL backend API (atur saat produksi)
+│   ├── config.js                   # window.STATIONERYIQ_API (URL backend)
 │   └── app.js
 ├── .github/workflows/ci.yml        # CI: lint + test
-├── render.yaml                     # blueprint deploy backend (contoh)
+├── Dockerfile                      # image backend (dipakai Railway)
+├── railway.json                    # builder DOCKERFILE (Railway)
+├── .dockerignore
+├── render.yaml                     # blueprint alternatif (Render)
 ├── docs/
 │   ├── README.md                   # Ketergantungan antar peran
-│   ├── BOARD.md                    # Kanban interim
-│   ├── DEPLOY.md                   # Langkah deploy (PaaS + Vercel/cPanel)
+│   ├── BOARD.md                    # Snapshot Kanban
+│   ├── DEPLOY.md                   # Langkah deploy
 │   └── design/                     # Aset desain (wireframe, mock)
 ├── README.md
 ├── ROLE_FULLSTACK_DEVELOPER.md     # Konteks role & task FSD
@@ -103,14 +113,39 @@ python -m http.server 5500
 
 ## Deploy
 
-Lihat [`docs/DEPLOY.md`](docs/DEPLOY.md): backend ke PaaS (contoh Render), frontend statis ke Vercel atau cPanel, database di Supabase.
+- **Backend:** Railway (Docker) → https://stationeryiq-production.up.railway.app
+- **Frontend:** cPanel statis → https://rilah.ujangkedu.my.id
+- **Database:** Supabase (PostgreSQL, hosted)
 
-## Endpoint Minimum (rencana)
+Langkah lengkap: [`docs/DEPLOY.md`](docs/DEPLOY.md).
 
-- `GET /health` — health check
-- `GET /stok` — daftar stok produk
+## Endpoint
+
+Semua aktif di https://stationeryiq-production.up.railway.app
+
+- `GET /health` — health check (mode `supabase`/`mock`)
+- `GET /stok` — daftar stok produk (query `?q=` opsional)
 - `GET /kategori` — daftar kategori
-- `POST /chat` — kirim pertanyaan, terima jawaban RAG
+- `POST /chat` — kirim pertanyaan, terima jawaban RAG (**stub** sampai kontrak GenAI final)
+
+## Kolaborasi Antar-Path
+
+Repo ini dipakai 3 path. Jangan ubah wilayah path lain tanpa koordinasi PIC.
+
+| Path | Wilayah | Artefak |
+|---|---|---|
+| Full Stack Developer (Rafi, Rizki) | `backend/`, `frontend/`, deploy | API, UI, integrasi |
+| Data Scientist (Hasya, Intan) | Supabase + `data/` | skema, katalog JSON |
+| GenAI Engineer (Ghally, Wahyu) | `rag/` | pipeline RAG, prompt, guardrails |
+
+Alur kerja kontributor:
+
+1. `git pull --ff-only`
+2. Kerjakan **hanya** di folder wilayah sendiri
+3. `git add` → `commit` → `git push origin main`
+4. Perubahan format JSON/payload yang dipakai path lain → sepakati dulu (lihat [`docs/README.md`](docs/README.md))
+
+Butuh akses? Minta owner menambah sebagai Collaborator (role **Write**).
 
 ## Alur Kerja Git
 
