@@ -9,6 +9,11 @@ venv/
 # Node
 node_modules/
 
+# Arsip
+*.zip
+*.rar
+*.7z
+
 # Env & editor
 .env
 .venv
