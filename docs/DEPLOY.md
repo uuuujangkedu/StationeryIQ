@@ -27,13 +27,14 @@ Env vars wajib:
 | `ALLOWED_ORIGINS` | origin frontend, mis. `https://stationeryiq.vercel.app` | tidak |
 
 Catatan:
-- `backend/Procfile` + `backend/runtime.txt` sudah disediakan (dipakai Railway/Heroku-style dan Render).
+- `backend/Procfile` sudah disediakan (dipakai Railway/Heroku-style dan Render).
+- Versi Python: **tidak dipin** — builder memakai default-nya. Bila perlu pin, set env builder `MISE_PYTHON_GITHUB_ATTESTATIONS=false` (Railway/mise) atau `PYTHON_VERSION` (Render). `runtime.txt` lama dihapus karena pin `python-3.13.0` gagal verifikasi attestation mise.
 - Host lain: Railway/Fly.io ikut pola sama (root `backend`, start `uvicorn main:app --host 0.0.0.0 --port $PORT`).
 - Verifikasi: `GET https://<host>/health` → `{"status":"ok","db":"supabase"}`.
 
 ### Railway (Railpack)
 
-Kalau builder membaca **root repo** (mis. Railpack di Railway), sudah ada shim root: `requirements.txt`, `Procfile`, `runtime.txt`. Jadi tanpa ubah setelan, deploy harusnya jalan.
+Kalau builder membaca **root repo** (mis. Railpack di Railway), sudah ada shim root: `requirements.txt`, `Procfile`. Jadi tanpa ubah setelan, deploy harusnya jalan.
 
 Alternatif/rekomendasi: set **Root Directory = `backend`** di Service Settings, lalu start command `uvicorn main:app --host 0.0.0.0 --port $PORT`. Bila muncul error "railpack process exited with an error", cek: (a) Root Directory belum diisi, atau (b) env vars belum lengkap.
 
