@@ -27,24 +27,21 @@ Env vars wajib:
 | `ALLOWED_ORIGINS` | origin frontend, mis. `https://stationeryiq.vercel.app` | tidak |
 
 Catatan:
-- `backend/Procfile` sudah disediakan (dipakai Railway/Heroku-style dan Render).
-- Versi Python: **tidak dipin** — builder memakai default-nya. Bila perlu pin, set env builder `MISE_PYTHON_GITHUB_ATTESTATIONS=false` (Railway/mise) atau `PYTHON_VERSION` (Render). `runtime.txt` lama dihapus karena pin `python-3.13.0` gagal verifikasi attestation mise.
-- Host lain: Railway/Fly.io ikut pola sama (root `backend`, start `uvicorn main:app --host 0.0.0.0 --port $PORT`).
+- Host lain: Fly.io/Heroku-style ikut pola sama (`uvicorn main:app --host 0.0.0.0 --port $PORT`).
 - Verifikasi: `GET https://<host>/health` → `{"status":"ok","db":"supabase"}`.
 
-### Railway (Railpack)
+### Railway (aktif — pakai Dockerfile)
 
-**Wajib: set Root Directory = `backend`** di Service Settings. Tanpa itu, builder mencari app di root repo dan gagal.
+Repo punya `Dockerfile` di root + `railway.json` (`builder: DOCKERFILE`). Builder default (Railpack) **tidak** dipakai
+karena hanya meng-copy file `requirements.txt` ke root, sehingga include ke `backend/` gagal.
 
-Setelan service:
-- **Root Directory:** `backend`
-- **Build Command:** `pip install -r requirements.txt`
-- **Start Command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
-- **Env:** `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `ALLOWED_ORIGINS`
+Setelan service (tanpa perlu Root Directory):
+- **Root Directory:** kosong (Dockerfile di root)
+- **Env:** `SUPABASE_URL`, `SUPABASE_SECRET_KEY` (rahasia), `ALLOWED_ORIGINS`
+- Domain: `railway domain` → `https://<service>-production.up.railway.app`
 
-Bila muncul `Could not open requirements file: '/app/backend/requirements.txt'` (path dobel),
-periksa: Root Directory diisi **dan** tidak ada shim `requirements.txt`/`Procfile` di root repo.
-Kosongkan Build/Start Command agar memakai setelan di atas, lalu redeploy.
+Terverifikasi live: `/health` `{"status":"ok","db":"supabase"}`, `/kategori`, `/stok`, `/chat` semua `200`.
+Catatan: `railway.json` (config-as-code) deprecated per 2026-12-01; migrasi ke `.railway/railway.ts` bila melewati tanggal itu.
 
 ## 2. Frontend (statis)
 
@@ -64,8 +61,10 @@ Frontend murni statis (tanpa build). Dua pilihan:
 
 ## 3. Setelah frontend live
 
-- Set `ALLOWED_ORIGINS` di backend ke origin frontend persis (mis. `https://stationeryiq.vercel.app`), lalu redeploy/restart backend.
+- Frontend produksi saat ini: **https://rilah.ujangkedu.my.id** (statis; upload isi `frontend/`).
+- `ALLOWED_ORIGINS` di backend sudah di-set ke origin itu.
 - Buka situs → cek badge status "terhubung" dan uji chat.
+- Ubah URL backend → edit `frontend/config.js` (`window.STATIONERYIQ_API`) lalu upload ulang.
 
 ## Tips
 
