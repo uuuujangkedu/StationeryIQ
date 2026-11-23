@@ -1,7 +1,8 @@
-# Kanban — StationeryIQ (interim)
+# Kanban — StationeryIQ
 
-> GitHub Projects belum dibuat (butuh akses `gh` + owner). Ini papan sementara;
-> status disinkronkan manual. Lihat [`README.md`](README.md) untuk ketergantungan antar peran.
+> **Board resmi:** GitHub Projects **"StationeryIQ MVP Board"** (owner `uuuujangkedu`),
+> ter-link ke repo ini — https://github.com/users/uuuujangkedu/projects/1
+> File ini snapshot status; sumber kebenaran = board. Lihat [`README.md`](README.md) untuk ketergantungan antar peran.
 
 ## Backlog
 
@@ -24,7 +25,7 @@
 
 | ID | PIC | Prioritas | Tugas | Catatan |
 |---|---|---|---|---|
-| TSK-FS-01 | Rafi | Sedang | Setup repo, branching, environment, **board** | repo/CI/branching ✔; board belum |
+| TSK-FS-01 | Rafi | Sedang | Setup repo, branching, environment, **board** | repo/CI/branching ✔; board (GitHub Project) ✔ |
 | TSK-FS-04 | Rizki | Tinggi | REST API penghubung frontend–DB | `/stok` & `/kategori` sudah baca Supabase; tinggal poles + error handling |
 
 ## Review
@@ -40,13 +41,20 @@ _(kosong)_
 | — | — | Minggu 1 | CI dasar (lint + test) via GitHub Actions |
 | — | — | Minggu 1 | Supabase tersambung (mode `supabase`) |
 | — | — | Minggu 1 | Uji E2E frontend ↔ API (semua endpoint 200) |
+| — | — | Minggu 1 | Kanban GitHub Projects "StationeryIQ MVP Board" dibuat + 15 kartu |
+| — | — | Minggu 2 | Deploy backend live di Railway (Docker) — https://stationeryiq-production.up.railway.app |
 
-## Cara pindah ke GitHub Projects
+## Dibuat sebagai GitHub Project
 
-Butuh `gh` + akses owner. Setelah `gh auth login`:
+Board sudah dibuat + 15 kartu, kolom Status terisi (Todo 7 / In Progress 2 / Done 6):
+
+- Project: https://github.com/users/uuuujangkedu/projects/1
+- Kartu draft (DraftIssue): judul = ID + tugas, body = PIC · periode · prioritas.
+
+Kelola via web, atau CLI:
 
 ```powershell
-gh project create --owner Heda312 --title "StationeryIQ MVP Board"
-# lalu tambah kartu, contoh:
-gh project item-create <NUMBER> --owner Heda312 --title "TSK-FS-05 Integrasi end-to-end" --body "PIC Rafi & Rizki · Minggu 3 · Tinggi"
+gh project list --owner uuuujangkedu
+gh project item-list 1 --owner uuuujangkedu
+gh project item-create 1 --owner uuuujangkedu --title "TSK-FS-xx ..." --body "PIC: ... · Minggu N · Prioritas"
 ```
