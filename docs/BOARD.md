@@ -10,7 +10,6 @@
 |---|---|---|---|---|
 | TSK-FS-05 | Rafi & Rizki | Minggu 3 | Tinggi | Integrasi frontend + backend + DB + RAG (end-to-end staging) |
 | TSK-FS-06 | Rafi | Minggu 3 | Tinggi | Tes E2E, validasi input ekstrem, bug fixing |
-| TSK-FS-07 | Rizki | Minggu 4 | Tinggi | Deployment prototipe ke staging/production |
 | TSK-FS-08 | Rafi & Rizki | Minggu 4 | Tinggi | UAT dengan pemilik toko + final fix |
 | TSK-FS-09 | Rafi | Minggu 4 | Sedang | User Manual (PDF/MD + screenshot) |
 | TSK-FS-10 | Rizki | Pasca-MVP | Sedang | Dashboard admin CRUD stok + transaksi + login |
@@ -20,13 +19,14 @@
 | ID | PIC | Prioritas | Tugas |
 |---|---|---|---|
 | — | Rizki | Tinggi | Kontrak JSON katalog + interface RAG (koordinasi DS & GenAI) |
+| — | Rizki/kamu | Tinggi | Upload frontend ke cPanel + arahkan ke API Railway (`config.js`) |
 
 ## In Progress
 
 | ID | PIC | Prioritas | Tugas | Catatan |
 |---|---|---|---|---|
-| TSK-FS-01 | Rafi | Sedang | Setup repo, branching, environment, **board** | repo/CI/branching ✔; board (GitHub Project) ✔ |
 | TSK-FS-04 | Rizki | Tinggi | REST API penghubung frontend–DB | `/stok` & `/kategori` sudah baca Supabase; tinggal poles + error handling |
+| TSK-FS-07 | Rizki | Tinggi | Deployment prototipe (staging/production) | backend live Railway; frontend (cPanel) menunggu upload |
 
 ## Review
 
@@ -36,6 +36,7 @@ _(kosong)_
 
 | ID | PIC | Periode | Deliverable |
 |---|---|---|---|
+| TSK-FS-01 | Rafi | Minggu 1 | Setup repo, aturan branching, environment, **board** (GitHub Project) |
 | TSK-FS-02 | Rizki | Minggu 1 | Wireframe UI chat (disetujui tim) + skeleton FastAPI & frontend |
 | — | — | Minggu 1 | Repo GitHub + README + aturan branching (push langsung) |
 | — | — | Minggu 1 | CI dasar (lint + test) via GitHub Actions |
@@ -46,7 +47,7 @@ _(kosong)_
 
 ## Dibuat sebagai GitHub Project
 
-Board sudah dibuat + 15 kartu, kolom Status terisi (Todo 7 / In Progress 2 / Done 6):
+Board resmi: 16 kartu, kolom Status terisi (Todo 7 / In Progress 2 / Done 7).
 
 - Project: https://github.com/users/uuuujangkedu/projects/1
 - Kartu draft (DraftIssue): judul = ID + tugas, body = PIC · periode · prioritas.
