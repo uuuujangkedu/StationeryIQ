@@ -5,12 +5,16 @@ Stok & kategori dibaca dari Supabase (fallback mock bila env kosong).
 Respons /chat masih stub; kontraknya disepakati dengan path GenAI.
 """
 
+import logging
 import os
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 import db
+
+# Pesan asli DB dicatat di server; klien tetap dapat pesan ramah (tanpa detail).
+logger = logging.getLogger("stationeryiq.api")
 
 app = FastAPI(title="StationeryIQ API", version="0.0.1")
 
@@ -35,6 +39,7 @@ def list_stok(q: str | None = None):
     try:
         return {"items": db.fetch_stok(q)}
     except Exception as exc:
+        logger.warning("stok gagal: %s", exc)
         raise HTTPException(status_code=503, detail="Gagal membaca data stok. Coba lagi.") from exc
 
 
@@ -43,6 +48,7 @@ def list_kategori():
     try:
         return {"items": db.fetch_kategori()}
     except Exception as exc:
+        logger.warning("kategori gagal: %s", exc)
         raise HTTPException(status_code=503, detail="Gagal membaca kategori. Coba lagi.") from exc
 
 
